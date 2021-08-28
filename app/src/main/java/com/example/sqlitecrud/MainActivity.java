@@ -2,10 +2,17 @@ package com.example.sqlitecrud;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import data.MyDbHandelar;
 import model.Contact;
+import params.Params;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,13 +21,47 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyDbHandelar db = new MyDbHandelar(MainActivity.this);
+        MyDbHandelar sqLiteDatabase = new MyDbHandelar(MainActivity.this);
 
         // Adding a contact to the db
-        Contact Abdullah = new Contact();
-        Abdullah.setPhoneNumber("01777-81151");
-        Abdullah.setName("Abdullah");
+        Contact abdullah = new Contact();
+        abdullah.setPhoneNumber("01777-81151");
+        abdullah.setName("Abdullah");
 
-        db.addContact(Abdullah);
+        sqLiteDatabase.addContact(abdullah);
+
+        Contact Azim = new Contact();
+        Azim.setPhoneNumber("01777-81152");
+        Azim.setName("Azim");
+
+        sqLiteDatabase.addContact(Azim);
+
+        Contact Atiq = new Contact();
+        Atiq.setPhoneNumber("01521-303767");
+        Atiq.setName("Atiq");
+
+        sqLiteDatabase.addContact(Atiq);
+
+        Log.d("dbharry", "Id for Azim & Atiq are are succesfully added to the db  " + Azim.getId() + Atiq.getId());
+
+        Atiq.setId(46);
+        Atiq.setName("Changed Atiq");
+        Atiq.setPhoneNumber("01728444222");
+        int affectedRows = sqLiteDatabase.updateContact(Atiq);
+
+        Log.d("dbharry","Number Of affected rows are: "+affectedRows);
+
+        // Get all contacts
+        List<Contact> allContacts = sqLiteDatabase.getAllContacts();
+        for (Contact contact: allContacts){
+            Log.d("dbharry","Id: "+ contact.getId() + "\n"+
+                                     "Name: " + contact.getName() + "\n"+
+
+                                     "Phone Number: " + contact.getPhoneNumber() + "\n");
+
+
+        }
     }
+
+
 }

@@ -1,6 +1,6 @@
 package model;
 
-public final class Contact {
+public class Contact {
 
     private int id;
     private String name;

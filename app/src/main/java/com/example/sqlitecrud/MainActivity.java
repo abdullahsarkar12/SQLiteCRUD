@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,8 @@ import model.Contact;
 import params.Params;
 
 public class MainActivity extends AppCompatActivity {
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("dbharry","Number Of affected rows are: "+affectedRows);
 
+
+        ArrayList<String> contacts = new ArrayList<>();
+        listView = findViewById(R.id.listView);
+
         // Get all contacts
         List<Contact> allContacts = sqLiteDatabase.getAllContacts();
         for (Contact contact: allContacts){
@@ -67,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
                                      "Phone Number: " + contact.getPhoneNumber() + "\n");
 
 
+            contacts.add(contact.getName() + "(" + contact.getPhoneNumber() + ")");
         }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,contacts);
+        listView.setAdapter(arrayAdapter);
 
         Log.d("dbharry","Bro you have "+sqLiteDatabase.getCount()+"contacts in your database");
 

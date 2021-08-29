@@ -85,4 +85,18 @@ public class MyDbHandelar  extends SQLiteOpenHelper {
 
     }
 
+    public void deleteContact(int id){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(Params.TABLE_NAME,Params.KEY_ID + "=?", new String[]{String.valueOf(id)});
+        sqLiteDatabase.close();
+    }
+
+    public int getCount(){
+        String query = "SELECT * FROM " + Params.TABLE_NAME;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(query,null);
+        return cursor.getCount();
+    }
+
 }

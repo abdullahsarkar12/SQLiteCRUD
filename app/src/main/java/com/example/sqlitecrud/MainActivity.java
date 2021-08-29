@@ -54,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
         // Get all contacts
         List<Contact> allContacts = sqLiteDatabase.getAllContacts();
         for (Contact contact: allContacts){
+
+            sqLiteDatabase.deleteContact(1);
+            sqLiteDatabase.deleteContact(5);
+            sqLiteDatabase.deleteContact(11);
+            sqLiteDatabase.deleteContact(12);
+
+
             Log.d("dbharry","Id: "+ contact.getId() + "\n"+
                                      "Name: " + contact.getName() + "\n"+
 
@@ -61,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+
+        Log.d("dbharry","Bro you have "+sqLiteDatabase.getCount()+"contacts in your database");
+
     }
 
 
